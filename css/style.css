@@ -1,0 +1,53 @@
+body{
+    background:rgb(64, 160, 250);
+    background-size: cover;
+    background-position: center;
+}
+.card {
+    background: #ffff;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    max-width: 800px;
+    height: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+/* Add some padding inside the card container */
+.container {
+    padding: 2px 16px;
+    text-align: center
+}
+/* h3{
+    height: 100px;
+    display: table-cell;
+    vertical-align: middle
+} */
+.resource-container{
+    background: #f39741;
+    height: 180px;
+    padding:5px 10px 5px 10px ;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+.user-container{
+    text-align: left;
+    background: #fccf3eb4;
+    height: 140px;
+    overflow-x: scroll;
+    overflow-y:hidden;
+    white-space: nowrap;
+}
+.user-card{
+    display: inline-block;
+    margin:5px 10px 0 10px ;
+    padding:5px 10px 5px 10px ;
+    background: #ffff;
+   
+    width: 150px;
+    height:100px;
+}
