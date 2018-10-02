@@ -7,7 +7,7 @@ body{
     background: #ffff;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
-    max-width: 800px;
+    max-width: 840px;
     height: 800px;
     margin-left: auto;
     margin-right: auto;
@@ -43,7 +43,7 @@ h3{
     text-align: left;
     background: #fccf3eb4;
     height: 140px;
-    overflow-x: scroll;
+    overflow-x: hidden;
     overflow-y:hidden;
     white-space: nowrap;
 }

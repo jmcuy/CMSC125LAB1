@@ -17,8 +17,8 @@ function rand(n){
     return Math.floor(Math.random() * n) + 1
 }
 
-let num_users = rand(5)
-let num_resources = rand(5)
+let num_users = rand(30)
+let num_resources = rand(30)
 console.log("Number of Resources: " + num_resources + " " + "Number of Users: " + num_users)
 
 for(let i = 1; i <= num_resources;i++){
@@ -37,7 +37,7 @@ for(let i = 0; i < all_users.length; i++){
     // console.log(JSON.stringify(shuffled_resources))
     user_resources = rand(num_resources)
     for(let j = 0; j < user_resources;j++){
-        let t = rand(5)
+        let t = rand(30)
         item = new Item(shuffled_resources[j],all_users[i],t)
         // let data = {
         //     user_id: item.getUser().getId(),
@@ -60,34 +60,6 @@ for(let res = 0; res < shuffled_resources.length;res++){
 console.log(shuffle_res_copy)
 function schedule(queue_list){
 
-    // for(let i = 0; i < shuffled_resources.length;i++){
-    //     let container = document.getElementById("container")
-    //     let resource_container = document.createElement("div")
-    //     resource_container.className = "resource-container"
-    //     resource_container.id = "res" + shuffled_resources[i].getId()
-    //     queue = shuffled_resources[i].getQueue()
-    //     let user_content = " "
-    //     for(j = 0; j < queue.length;j++){
-    //         let item = queue[j].getUser()
-    //         let data = {
-    //             user_id: "user" + item.getId(),
-    //             res_title: "Resource " + shuffled_resources[i].getId(),
-    //             user_name: "<h3>User: " + item.getId() + "</h3>",
-    //             user_time: "<p>TIME: " + queue[j].getTime() + "</p>"
-
-    //         }
-    //         if (!user_content.includes(data.user_id)){
-    //             user_content += "<div class='user-card' id='user" + data.user_id + "'>" + data.user_name + data.user_time + "</div>"
-    //         }
-    //         let title =  "<a style='font-size: 20px'>" + data.res_title +"</a>"
-    //         let user_container =  "<div class= 'user-container'>" + user_content+ "</div>"
-    //         resource_container.innerHTML = title + user_container
-        
-    //         // console.log("Resource: " + queue[j].getRes().getId() + " " + 
-    //         // JSON.stringify(queue[j].getTime()))
-    //     }
-    //     container.appendChild(resource_container)
-    // }
     let queue = []
     let col = queue_list.length
     for(let i = 0; i < col; i++){
@@ -146,71 +118,114 @@ for(let i = 0; i < queue.length;i++){
     }
 }
 
-for(let i = 0; i < queue.length;i++){
-    q = queue[i]
-    let container = document.getElementById("container")
-    let resource_container = document.createElement("div")
-    resource_container.className = "resource-container"
-    let user_content = " "
-    if(q.length > 0){
-        resource_container.id = "res" + q[0].getRes().getId()
-        for(j = 0; j < q.length;j++){
-            let item = q[j]
-            let data = {
-                user_id: "user" + item.getUser().getId(),
-                res_title: "Resource " + item.getRes().getId(),
-                user_name: "<h3>User: " + item.getUser().getId() + "</h3>",
-                user_time: "<pre>TIME: " + item.getTime() + "   HOLD: " + item.getWaitingTime() +  "</pre>"
-            }
-            if (!user_content.includes(data.user_id)){
-                user_content += "<div class='user-card' id='user" + data.user_id + "'>" + data.user_name + data.user_time+ "</div>"
-            }
-            let title =  "<a style='font-size: 20px'>" + data.res_title +"</a>"
-            let user_container =  "<div class= 'user-container'>" + user_content+ "</div>"
-            resource_container.innerHTML = title + user_container
+// for(let i = 0; i < queue.length;i++){
+//     q = queue[i]
+//     let container = document.getElementById("container")
+//     let resource_container = document.createElement("div")
+//     resource_container.className = "resource-container"
+//     let user_content = " "
+//     if(q.length > 0){
+//         resource_container.id = "res" + q[0].getRes().getId()
+//         for(j = 0; j < q.length;j++){
+//             let item = q[j]
+//             let data = {
+//                 user_id: "user" + item.getUser().getId(),
+//                 res_title: "Resource " + item.getRes().getId(),
+//                 user_name: "<h3>User: " + item.getUser().getId() + "</h3>",
+//                 user_time: "<pre>TIME: " + item.getTime() + "   HOLD: " + item.getWaitingTime() +  "</pre>"
+//             }
+//             if (!user_content.includes(data.user_id)){
+//                 user_content += "<div class='user-card' id='user" + data.user_id + "'>" + data.user_name + data.user_time+ "</div>"
+//             }
+//             let title =  "<a style='font-size: 20px'>" + data.res_title +"</a>"
+//             let user_container =  "<div class= 'user-container'>" + user_content+ "</div>"
+//             resource_container.innerHTML = title + user_container
         
-            // console.log("Resource: " + queue[j].getRes().getId() + " " + 
-            // JSON.stringify(queue[j].getTime()))
-        }
-        container.appendChild(resource_container)
-    }
-}
+//             // console.log("Resource: " + queue[j].getRes().getId() + " " + 
+//             // JSON.stringify(queue[j].getTime()))
+//         }
+//         container.appendChild(resource_container)
+//     }
+// }
     
-   
-
+let prevHTML = "<h2>resources</h2>" 
+let container = document.getElementById("container")
+let queue_copy = [];
+for(let i = 0 ; i < queue.length;i++){
+    // if(queue[i].length  > 0){
+        queue_copy.push(queue[i].slice())
+    // }
+    
+}
+// let total_time = 0
 function countdown(){
-    // let curr_item = []
+    container.innerHTML = prevHTML
     for(let qi=0; qi < queue.length;qi++){
         let curr_item = queue[qi] 
+        // let container = document.getElementById("container")
+        let resource_container = document.createElement("div")
+        let user_container = document.createElement("div");
+        resource_container.className = "resource-container"
         if(curr_item.length > 0){
             let res = curr_item[0].getRes()
+            resource_container.id = "res" + res.getId() 
+            let user_card;
+            let Totaltime = res.getTotalTime()
+            resource_container.innerHTML = "<pre>Resource " + res.getId() + "\t\t\t\tTime Left:  " + Totaltime + "</pre>"
+            res.setTotalTime(res.getTotalTime() - 1)
             for(let el = 0; el < curr_item.length;el++){
                 item = curr_item[el]
+                user_card = document.createElement("div")
+                user_container.className = "user-container"
+                user_card.className = "user-card"
+                user_card.innerHTML = "User " + item.getUser().getId() +"<pre>"+ "Time: " + item.getTime()
+                + "   HOLD: " + item.getWaitingTime()  +"</pre>"
                 if(item.getWaitingTime() > 0){
+                    user_card.style = "background:orange;"
                     item.setWaitingTime(item.getWaitingTime() - 1)   
                 } else{
+                    user_card.style = "background:red;"
                     item.setTime(item.getTime() - 1)
+
                 }
+                
+                
+                
+               
                 console.log("Current Resource: " + curr_item[el].getRes().getId() 
                 + " User: " + curr_item[el].getUser().getId()
                 + " CURRENT TIME: " + curr_item[el].getTime()
                 + " Waiting Time: " +  curr_item[el].getWaitingTime() )    
-                if(item.getTime() == 0){ 
+                if(item.getTime() == 0){
+                    user_card.innerHTML = "User " + item.getUser().getId() +"<pre>"+ "Time: " + item.getTime()
+                + "   HOLD: " + item.getWaitingTime()  +"</pre>" 
                     console.log(res.getId())
-                    queue[res.getId() - 1].splice(el,1)
+                    // setTimeout(function(){
+                        queue[res.getId() - 1].splice(el,1)
+                    // },500)
+                    
                 }
                 
+                user_container.appendChild(user_card)
             }
+            
+           
+        } else {
+            resource_container.innerHTML = "<pre>Resource " + (qi + 1) +  "\t\t\t\tTime Left: 0" + "</pre><div class='user-container' style='text-align:center;'><br><br>free</div>"
         }     
+        
+        resource_container.appendChild(user_container)
+        container.appendChild(resource_container)
+        
     } 
     console.log(queue)
 }
-
 
 let x = setInterval(function(){
     countdown()
     let isEmpty = queue.every(el => el.length == 0);
     if(isEmpty){
+        countdown()    
         clearInterval(x)
         console.log("done")
         return;
