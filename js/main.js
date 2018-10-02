@@ -39,18 +39,10 @@ for(let i = 0; i < all_users.length; i++){
     for(let j = 0; j < user_resources;j++){
         let t = rand(30)
         item = new Item(shuffled_resources[j],all_users[i],t)
-        // let data = {
-        //     user_id: item.getUser().getId(),
-        //     res_id: item.getRes().getId(),
-        //     time: item.getTime()
-        // }
-        // console.log("DATA" + JSON.stringify(data))
-    
         shuffled_resources[j].setQueue(item)
         
     } 
 }
-// console.log("Resources: " + JSON.stringify(shuffled_resources))
 shuffled_resources.sort((a,b)=>(a.getId() > b.getId()) ? 1 : ((b.getId() > a.getId()) ? -1 : 0))
 shuffle_res_copy = []
 for(let res = 0; res < shuffled_resources.length;res++){
@@ -76,10 +68,7 @@ function schedule(queue_list){
                 let min_time = temp_resources[0].getUser().getTotalTime()
                 for(let el = 0; el < temp_resources.length;el++){
                     user = temp_resources[el].getUser()
-                    // console.log("CURENT Resources: " + res.getId() + "Res TotalTime: " + res.getTotalTime() )
-                    // console.log("Current User: " + user.getId() + "User Totaltime: " + user.getTotalTime())
                     min_time = min_time > user.getTotalTime() ? user.getTotalTime() : min_time
-                    // console.log("min time " +  min_time)
                     if(res.getTotalTime() >= user.getTotalTime()){
                         temp_resources[el].setWaitingTime(res.getTotalTime())
                         res.setTotalTime(temp_resources[el].getTime() + res.getTotalTime())
@@ -94,7 +83,6 @@ function schedule(queue_list){
                     res.setTotalTime(min_time)
                 }
             } else{
-                // console.log(temp_resources)
                 delete_list.push(qi)
             }   
         }
@@ -117,52 +105,18 @@ for(let i = 0; i < queue.length;i++){
         console.log("USER ID " + queue[i][j].getUser().getId())
     }
 }
-
-// for(let i = 0; i < queue.length;i++){
-//     q = queue[i]
-//     let container = document.getElementById("container")
-//     let resource_container = document.createElement("div")
-//     resource_container.className = "resource-container"
-//     let user_content = " "
-//     if(q.length > 0){
-//         resource_container.id = "res" + q[0].getRes().getId()
-//         for(j = 0; j < q.length;j++){
-//             let item = q[j]
-//             let data = {
-//                 user_id: "user" + item.getUser().getId(),
-//                 res_title: "Resource " + item.getRes().getId(),
-//                 user_name: "<h3>User: " + item.getUser().getId() + "</h3>",
-//                 user_time: "<pre>TIME: " + item.getTime() + "   HOLD: " + item.getWaitingTime() +  "</pre>"
-//             }
-//             if (!user_content.includes(data.user_id)){
-//                 user_content += "<div class='user-card' id='user" + data.user_id + "'>" + data.user_name + data.user_time+ "</div>"
-//             }
-//             let title =  "<a style='font-size: 20px'>" + data.res_title +"</a>"
-//             let user_container =  "<div class= 'user-container'>" + user_content+ "</div>"
-//             resource_container.innerHTML = title + user_container
-        
-//             // console.log("Resource: " + queue[j].getRes().getId() + " " + 
-//             // JSON.stringify(queue[j].getTime()))
-//         }
-//         container.appendChild(resource_container)
-//     }
-// }
     
 let prevHTML = "<h2>resources</h2>" 
 let container = document.getElementById("container")
 let queue_copy = [];
 for(let i = 0 ; i < queue.length;i++){
-    // if(queue[i].length  > 0){
-        queue_copy.push(queue[i].slice())
-    // }
-    
+    queue_copy.push(queue[i].slice())
 }
-// let total_time = 0
+
 function countdown(){
     container.innerHTML = prevHTML
     for(let qi=0; qi < queue.length;qi++){
         let curr_item = queue[qi] 
-        // let container = document.getElementById("container")
         let resource_container = document.createElement("div")
         let user_container = document.createElement("div");
         resource_container.className = "resource-container"
@@ -188,21 +142,15 @@ function countdown(){
                     item.setTime(item.getTime() - 1)
 
                 }
-                
-                
-                
-               
-                console.log("Current Resource: " + curr_item[el].getRes().getId() 
-                + " User: " + curr_item[el].getUser().getId()
-                + " CURRENT TIME: " + curr_item[el].getTime()
-                + " Waiting Time: " +  curr_item[el].getWaitingTime() )    
+                // console.log("Current Resource: " + curr_item[el].getRes().getId() 
+                // + " User: " + curr_item[el].getUser().getId()
+                // + " CURRENT TIME: " + curr_item[el].getTime()
+                // + " Waiting Time: " +  curr_item[el].getWaitingTime() )    
                 if(item.getTime() == 0){
                     user_card.innerHTML = "User " + item.getUser().getId() +"<pre>"+ "Time: " + item.getTime()
                 + "   HOLD: " + item.getWaitingTime()  +"</pre>" 
                     console.log(res.getId())
-                    // setTimeout(function(){
-                        queue[res.getId() - 1].splice(el,1)
-                    // },500)
+                    queue[res.getId() - 1].splice(el,1)
                     
                 }
                 
